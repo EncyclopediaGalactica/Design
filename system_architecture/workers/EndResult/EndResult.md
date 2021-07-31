@@ -36,3 +36,13 @@ Deletes the slot.
 |content|TEXT|The serialized content|
 |created_at|Datetime|Date of creation|
 |lifetime|INT|Slot lifetime in seconds|
+
+## Technical details
+
+- The worker is implemented by .NET 5 Generic Host.
+- Database is PostgreSQL
+- container is Docker and running on Kubernetes
+
+## Future possibilities
+
+- the database can be changed to Redis to achieve higher throughput
