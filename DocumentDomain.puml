@@ -1,0 +1,113 @@
+@startuml
+
+class Document {
+    Long Id
+    String Name
+    String Description
+    Source Source
+    Author Author
+    Structure Structure
+    DocumentType DocumentType
+    Format Format
+    Form Form
+}
+note top of Document 
+    The Document describes a document in the system
+    it pulls together all the information we know about it which
+    includes its data and all the information needed for
+    its representation
+    
+    It does not describe the form needed to put data into this
+    document format. This one is described by the Form object.
+end note
+
+class Form {
+    Long Id
+    String Name
+    String Description
+    String FormUiName
+    String FormType
+}
+
+note top of Form
+    The Form object describes a form which is, in general, complementary
+    of a Document object in the system. Form makes possible to
+    feed the Document by data using Encyclopedia Galactica system
+end note
+
+class FormStructure {
+    Long Id
+    String Name
+}
+
+note top of FormStructure
+    FormStructure describes basically a UI element building up the form
+    A good example for this is HTML elements
+end note
+
+class Format {
+    Long Id
+    String Name
+    String Description
+}
+
+class Source {
+    Long Id
+    Uri Uri
+}
+
+class Author {
+    Long Id
+    AuthorType AuthorType
+}
+
+class AuthorType {
+    Long Id
+    String Name
+}
+
+class Structure {
+    Long Id
+    String Name
+    String SeparatorBefore
+    String SeparatorAfter
+    String RawContent
+    Structure[] Structure
+}
+
+class Sentence {
+    Long Id;
+    String RawContent
+    Word[] Words
+}
+
+class Word{
+    Long Id
+    String Word
+    Character[] Characters
+}
+
+class Character{
+    Long Id
+    String Name
+    Char Character
+}
+
+class DocumentType {
+    Long Id
+    String Name
+    String Description
+    String FileExtension
+}
+
+Document -- Source
+Document -- Author
+Document -- DocumentType
+Author -- AuthorType
+Document -- Structure
+Structure -- Sentence
+Sentence -- Word
+Word -- Character
+Document -- Format
+Document -- Form
+@enduml
