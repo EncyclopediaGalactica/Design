@@ -26,18 +26,22 @@ class Form {
     String Name
     String Description
     String FormUiName
+    Uri PostUri
     String FormType
+    FormStructure[] FormStructures
+    Document Document
 }
 
 note top of Form
     The Form object describes a form which is, in general, complementary
     of a Document object in the system. Form makes possible to
-    feed the Document by data using Encyclopedia Galactica system
+    feed the Document by data using forms of Encyclopedia Galactica system
 end note
 
 class FormStructure {
     Long Id
     String Name
+    UIElement[] UIElement
 }
 
 note top of FormStructure
@@ -45,11 +49,40 @@ note top of FormStructure
     A good example for this is HTML elements
 end note
 
+class UIElement {
+    Long Id
+    String Name
+    String ElementTypeName
+    String ElementTypeContent
+    Validation[] Validations
+}
+
+note top of UIElement
+    The UIElement describes the concrete implementation
+    For example HTML Input field
+end note
+
+class Validation {
+    Long Id
+    String Name
+    String InputType
+    String ValidationRule
+}
+
+note top of Validation
+    Describes how the input data will be validated
+end note
+
 class Format {
     Long Id
     String Name
     String Description
 }
+
+note top of Format
+    Describes the original format of a Document
+    It can be for example book, RSS feed, Word document
+end note
 
 class Source {
     Long Id
@@ -81,11 +114,19 @@ class Sentence {
     Word[] Words
 }
 
+note top of Sentence
+    Describes a text sentence in the Document
+end note
+
 class Word{
     Long Id
     String Word
     Character[] Characters
 }
+
+note top of Word
+    It describes a word
+end note
 
 class Character{
     Long Id
@@ -110,4 +151,7 @@ Sentence -- Word
 Word -- Character
 Document -- Format
 Document -- Form
+Form -- FormStructure
+FormStructure -- UIElement
+UIElement - Validation
 @enduml
